@@ -4,6 +4,7 @@ import WelcomeMessage from './components/WelcomeMessage';
 import Footer from './components/Footer';
 import MainContent from './components/MainContent';
 import Header from './components/Header';
+import UserProfile from './components/UserProfile';
 
 function App() {
     return (
@@ -12,6 +13,7 @@ function App() {
             <MainContent />
             <Footer />
             <WelcomeMessage />
+            <UserProfile name="Happiness" age="32" bio="Loves coding"/>
         </div>
     );
 }
