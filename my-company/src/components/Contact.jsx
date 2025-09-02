@@ -16,15 +16,15 @@ function Contact() {
     }));
   };
 
-  // ✅ This function includes preventDefault
+  
   const handleSubmit = (e) => {
-    e.preventDefault(); // ⛔ Prevents page reload
+    e.preventDefault(); 
 
     console.log('Form submitted:', formData);
 
-    // Optionally, validate or send the data here...
+    
 
-    // Reset form after submission
+    
     setFormData({
       name: '',
       email: '',
@@ -36,7 +36,7 @@ function Contact() {
     <div style={{ padding: '20px', backgroundColor: 'beige', minHeight: '80vh', color: 'black' }}>
       <h1>Contact Us</h1>
 
-      {/* ✅ Form uses onSubmit with handleSubmit */}
+      
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -78,9 +78,9 @@ function Contact() {
         </button>
       </form>
 
-      {/* Optional: Live preview */}
+      
       <div style={{ marginTop: '20px' }}>
-        <h3>Form Data (Live Preview):</h3>
+        <h3>Form Data</h3>
         <p><strong>Name:</strong> {formData.name}</p>
         <p><strong>Email:</strong> {formData.email}</p>
         <p><strong>Message:</strong> {formData.message}</p>
