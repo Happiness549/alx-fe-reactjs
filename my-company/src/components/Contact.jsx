@@ -1,31 +1,50 @@
+
  import { useState } from 'react';
 
 function Contact() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    message: ''
+    message: '',
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
+  // ✅ This function includes preventDefault
+  const handleSubmit = (e) => {
+    e.preventDefault(); // ⛔ Prevents page reload
+
+    console.log('Form submitted:', formData);
+
+    // Optionally, validate or send the data here...
+
+    // Reset form after submission
+    setFormData({
+      name: '',
+      email: '',
+      message: '',
+    });
+  };
+
   return (
     <div style={{ padding: '20px', backgroundColor: 'beige', minHeight: '80vh', color: 'black' }}>
       <h1>Contact Us</h1>
-      <form>
+
+      {/* ✅ Form uses onSubmit with handleSubmit */}
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="name"
           placeholder="Your Name"
           value={formData.name}
           onChange={handleChange}
-          style={{ display: 'block', margin: '10px 0', padding: '8px' }}
+          style={{ display: 'block', margin: '10px 0', padding: '8px', width: '100%' }}
         />
         <input
           type="email"
@@ -33,28 +52,33 @@ function Contact() {
           placeholder="Your Email"
           value={formData.email}
           onChange={handleChange}
-          style={{ display: 'block', margin: '10px 0', padding: '8px' }}
+          style={{ display: 'block', margin: '10px 0', padding: '8px', width: '100%' }}
         />
         <textarea
           name="message"
           placeholder="Your Message"
           value={formData.message}
           onChange={handleChange}
-          style={{ display: 'block', margin: '10px 0', padding: '8px' }}
+          style={{ display: 'block', margin: '10px 0', padding: '8px', width: '100%', minHeight: '100px' }}
         />
-        <button type="button" style={{
-          padding: '10px 20px',
-          backgroundColor: '#333',
-          color: '#fff',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer'
-        }}>
+
+        {/* ✅ Button type should be submit */}
+        <button
+          type="submit"
+          style={{
+            padding: '10px 20px',
+            backgroundColor: '#333',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer',
+          }}
+        >
           Send
         </button>
       </form>
 
-      {/* Displaying form state to demonstrate useState */}
+      {/* Optional: Live preview */}
       <div style={{ marginTop: '20px' }}>
         <h3>Form Data (Live Preview):</h3>
         <p><strong>Name:</strong> {formData.name}</p>
@@ -67,26 +91,6 @@ function Contact() {
 
 export default Contact;
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
  
  
  
