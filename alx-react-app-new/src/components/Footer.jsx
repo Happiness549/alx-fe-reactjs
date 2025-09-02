@@ -5,7 +5,8 @@ function Footer() {
                 marginTop: '90px',
                 fontFamily: 'Arial, sans-serif',
                 borderTop: '1px solid #444',
-                
+                position: 'fixed',
+                bottom: '0',
             }}>
          <p style={{ margin: 0 }}>© 2023 City Lovers</p>
        </footer>
