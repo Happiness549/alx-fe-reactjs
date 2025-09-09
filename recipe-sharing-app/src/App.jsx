@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import RecipeList from './components/RecipeList'
-import RecipeForm from './components/RecipeForm'
+import AddRecipeForm from './components/AddRecipeForm'
 import './App.css'
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
     <>
       <div>
         < RecipeList />
-        < RecipeForm />
+        < AddRecipeForm />
     
       </div>
      
