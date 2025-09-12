@@ -1,4 +1,3 @@
-
 import { useRecipeStore } from '../recipeStore';
 
 const RecipeDetails = ({ recipeId }) => {
@@ -19,8 +18,3 @@ const RecipeDetails = ({ recipeId }) => {
 };
 
 export default RecipeDetails;
-
-
-
-
-
