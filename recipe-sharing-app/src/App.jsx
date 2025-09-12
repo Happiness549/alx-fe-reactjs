@@ -14,7 +14,7 @@ function App() {
     <Router>
       <Routes>
     
-        <Route path="/" element={<><Searchbar /><AddRecipeForm /><RecipeList /></>} />
+        <Route path="/" element={<><SearchBar /><AddRecipeForm /><RecipeList /></>} />
       
         <Route path="/recipes/:id" element={<RecipeDetailsWrapper />} />
 
