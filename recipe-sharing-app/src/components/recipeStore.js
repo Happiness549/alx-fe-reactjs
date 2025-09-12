@@ -1,32 +1,98 @@
+// src/recipeStore.js
 import create from 'zustand'
 
- const useRecipeStore = create(set => ({
-  recipes: [],
+export const useRecipeStore = create(set => ({
+  // initial recipes (can be empty [])
+  recipes: [
+    { id: 1, title: 'Spaghetti Bolognese', description: 'Classic Italian meat sauce.' },
+    { id: 2, title: 'Pancakes', description: 'Fluffy pancakes with syrup.' }
+  ],
 
-  
-  // Add a new recipe
-  addRecipe: (newRecipe) =>
-    set((state) => ({
-      recipes: [...state.recipes, newRecipe],
-    })),
+  // search & filter state
+  searchTerm: '',
+  // start filteredRecipes with the full list so the list shows initially
+  filteredRecipes: [
+    { id: 1, title: 'Spaghetti Bolognese', description: 'Classic Italian meat sauce.' },
+    { id: 2, title: 'Pancakes', description: 'Fluffy pancakes with syrup.' }
+  ],
 
-    
-  // Delete recipe by id
-  deleteRecipe: (id) =>
-    set((state) => ({
-      recipes: state.recipes.filter((recipe) => recipe.id !== id),
-    })),
+  // Add recipe and keep filteredRecipes in sync with the current searchTerm
+  addRecipe: (newRecipe) => set(state => {
+    const recipes = [...state.recipes, newRecipe]
+    const filteredRecipes = state.searchTerm
+      ? recipes.filter(r => r.title.toLowerCase().includes(state.searchTerm.toLowerCase()))
+      : recipes
+    return { recipes, filteredRecipes }
+  }),
 
-      // Update recipe by id
-  updateRecipe: (updatedRecipe) =>
-    set((state) => ({
-      recipes: state.recipes.map((recipe) =>
-        recipe.id === updatedRecipe.id ? { ...recipe, ...updatedRecipe } : recipe
-      ),
-    })),
+  // Replace all recipes (keeps filtered in sync)
+  setRecipes: (recipes) => set(state => {
+    const filteredRecipes = state.searchTerm
+      ? recipes.filter(r => r.title.toLowerCase().includes(state.searchTerm.toLowerCase()))
+      : recipes
+    return { recipes, filteredRecipes }
+  }),
 
-    
-  // Optional: initialize/reset recipes
-  setRecipes: (recipes) => set({ recipes }),
-}));
+  // Update a recipe by id (keeps filtered in sync)
+  updateRecipe: (updatedRecipe) => set(state => {
+    const recipes = state.recipes.map(r => (r.id === updatedRecipe.id ? updatedRecipe : r))
+    const filteredRecipes = state.searchTerm
+      ? recipes.filter(r => r.title.toLowerCase().includes(state.searchTerm.toLowerCase()))
+      : recipes
+    return { recipes, filteredRecipes }
+  }),
+
+  // Delete a recipe (keeps filtered in sync)
+  deleteRecipe: (id) => set(state => {
+    const recipes = state.recipes.filter(r => r.id !== id)
+    const filteredRecipes = state.searchTerm
+      ? recipes.filter(r => r.title.toLowerCase().includes(state.searchTerm.toLowerCase()))
+      : recipes
+    return { recipes, filteredRecipes }
+  }),
+
+  // Set the search term and compute filteredRecipes immediately
+  setSearchTerm: (term) => set(state => {
+    const filteredRecipes = term
+      ? state.recipes.filter(r => r.title.toLowerCase().includes(term.toLowerCase()))
+      : state.recipes
+    return { searchTerm: term, filteredRecipes }
+  }),
+
+  // Explicit action to recompute filteredRecipes from current recipes/searchTerm
+  filterRecipes: () => set(state => {
+    const term = state.searchTerm
+    const filteredRecipes = term
+      ? state.recipes.filter(r => r.title.toLowerCase().includes(term.toLowerCase()))
+      : state.recipes
+    return { filteredRecipes }
+  }),
+}))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
