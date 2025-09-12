@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import SearchBar from './components/SearchBar'
+import SearchBar from './components/Searchbar'
 import RecipeList from './components/RecipeList';
 import AddRecipeForm from './components/AddRecipeForm';
 import RecipeDetails from './components/RecipeDetails';
@@ -14,7 +14,7 @@ function App() {
     <Router>
       <Routes>
     
-        <Route path="/" element={<><SearchBar /><AddRecipeForm /><RecipeList /></>} />
+        <Route path="/" element={<><Searchbar /><AddRecipeForm /><RecipeList /></>} />
       
         <Route path="/recipes/:id" element={<RecipeDetailsWrapper />} />
 
