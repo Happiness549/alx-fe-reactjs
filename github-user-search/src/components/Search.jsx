@@ -43,7 +43,7 @@ function SearchBar() {
       </form>
 
       {loading && <p className="text-gray-700">Loading...</p>}
-      {error && <p className="text-red-600">Looks like we can't find the user</p>}
+      {error && <p className="text-red-600">Looks like we cant find the user</p>}
       {user && (
         <div className="border p-4 rounded shadow flex items-center gap-4">
           <img src={user.avatar_url} alt={user.login} className="w-16 h-16 rounded-full" />
