@@ -1,4 +1,4 @@
-/** @type{import('tailwindcss).config} 
+/** @type {import('tailwindcss).config} 
 */
 
 export default {
