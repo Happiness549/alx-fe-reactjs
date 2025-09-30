@@ -12,24 +12,35 @@ function AddRecipeForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Simple validation
     const newErrors = {};
+
+    // Validation checks
     if (!title.trim()) newErrors.title = "Title is required";
-    if (!ingredients.trim()) newErrors.ingredients = "Ingredients are required";
-    if (!steps.trim()) newErrors.steps = "Preparation steps are required";
+
+    const ingredientsList = ingredients
+      .split("\n")
+      .filter((line) => line.trim() !== "");
+    if (ingredientsList.length < 2)
+      newErrors.ingredients = "At least 2 ingredients are required";
+
+    const stepsList = steps
+      .split("\n")
+      .filter((line) => line.trim() !== "");
+    if (stepsList.length < 1)
+      newErrors.steps = "At least 1 preparation step is required";
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
 
-    // If valid, create new recipe object
+    // Create new recipe object
     const newRecipe = {
-      id: Date.now(), // unique id for demo
+      id: Date.now(),
       title,
-      ingredients: ingredients.split("\n"), // each line as an ingredient
-      instructions: steps.split("\n"), // each line as a step
-      image: "https://via.placeholder.com/150", // placeholder image
+      ingredients: ingredientsList,
+      instructions: stepsList,
+      image: "https://via.placeholder.com/150",
     };
 
     console.log("New Recipe Submitted:", newRecipe);
@@ -47,7 +58,9 @@ function AddRecipeForm() {
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Recipe Title */}
         <div>
-          <label className="block mb-1 font-semibold" htmlFor="title">Title</label>
+          <label className="block mb-1 font-semibold" htmlFor="title">
+            Title
+          </label>
           <input
             type="text"
             id="title"
@@ -55,12 +68,16 @@ function AddRecipeForm() {
             onChange={(e) => setTitle(e.target.value)}
             className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
+          {errors.title && (
+            <p className="text-red-500 text-sm mt-1">{errors.title}</p>
+          )}
         </div>
 
         {/* Ingredients */}
         <div>
-          <label className="block mb-1 font-semibold" htmlFor="ingredients">Ingredients (one per line)</label>
+          <label className="block mb-1 font-semibold" htmlFor="ingredients">
+            Ingredients (one per line)
+          </label>
           <textarea
             id="ingredients"
             value={ingredients}
@@ -68,12 +85,16 @@ function AddRecipeForm() {
             className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             rows={4}
           />
-          {errors.ingredients && <p className="text-red-500 text-sm mt-1">{errors.ingredients}</p>}
+          {errors.ingredients && (
+            <p className="text-red-500 text-sm mt-1">{errors.ingredients}</p>
+          )}
         </div>
 
         {/* Preparation Steps */}
         <div>
-          <label className="block mb-1 font-semibold" htmlFor="steps">Preparation Steps (one per line)</label>
+          <label className="block mb-1 font-semibold" htmlFor="steps">
+            Preparation Steps (one per line)
+          </label>
           <textarea
             id="steps"
             value={steps}
@@ -81,7 +102,9 @@ function AddRecipeForm() {
             className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             rows={4}
           />
-          {errors.steps && <p className="text-red-500 text-sm mt-1">{errors.steps}</p>}
+          {errors.steps && (
+            <p className="text-red-500 text-sm mt-1">{errors.steps}</p>
+          )}
         </div>
 
         {/* Submit Button */}
