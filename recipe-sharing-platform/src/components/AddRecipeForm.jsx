@@ -1,20 +1,15 @@
 import { useState } from "react";
 
 function AddRecipeForm() {
-  // State to hold form data
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
   const [steps, setSteps] = useState("");
-
-  // State for validation errors
   const [errors, setErrors] = useState({});
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
+  // ✅ Validation function
+  const validate = () => {
     const newErrors = {};
 
-    // Validation checks
     if (!title.trim()) newErrors.title = "Title is required";
 
     const ingredientsList = ingredients
@@ -29,12 +24,19 @@ function AddRecipeForm() {
     if (stepsList.length < 1)
       newErrors.steps = "At least 1 preparation step is required";
 
+    return { newErrors, ingredientsList, stepsList };
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const { newErrors, ingredientsList, stepsList } = validate();
+
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
 
-    // Create new recipe object
     const newRecipe = {
       id: Date.now(),
       title,
@@ -45,7 +47,6 @@ function AddRecipeForm() {
 
     console.log("New Recipe Submitted:", newRecipe);
 
-    // Reset form
     setTitle("");
     setIngredients("");
     setSteps("");
@@ -56,7 +57,7 @@ function AddRecipeForm() {
     <div className="max-w-xl mx-auto p-6 bg-white rounded shadow-lg mt-6">
       <h2 className="text-2xl font-bold mb-4 text-center">Add New Recipe</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Recipe Title */}
+        {/* Title */}
         <div>
           <label className="block mb-1 font-semibold" htmlFor="title">
             Title
@@ -107,7 +108,7 @@ function AddRecipeForm() {
           )}
         </div>
 
-        {/* Submit Button */}
+        {/* Submit */}
         <button
           type="submit"
           className="w-full bg-blue-500 text-white font-semibold py-2 rounded hover:bg-blue-600 transition duration-300"
