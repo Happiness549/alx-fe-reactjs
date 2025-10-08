@@ -17,7 +17,7 @@ const RegistrationForm = () => {
 
     const validate = () => {
     const newErrors = {};
-    if (!formData.userName.trim()) newErrors.username = 'Username is required';
+    if (!formData.userName.trim()) newErrors.userName = 'Username is required';
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
     } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
@@ -33,7 +33,7 @@ const RegistrationForm = () => {
     if(!validate()) return;
      console.log('Submitting', formData);
 
-     setFormData({username: '', email: '', password: ''});
+     setFormData({userName: '', email: '', password: ''});
      setErrors({});
   };
 
@@ -45,11 +45,11 @@ const RegistrationForm = () => {
           id="username"
           name="username"
           type="text"
-          value={formData.username}
+          value={formData.userName}
           onChange={handleChange}
           aria-describedby="username-error"
         />
-        {errors.username && <div id="username-error" role="alert">{errors.username}</div>}
+        {errors.userName && <div id="username-error" role="alert">{errors.userName}</div>}
       </div>
 
       <div>

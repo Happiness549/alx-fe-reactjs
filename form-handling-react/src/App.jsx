@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import RegistrationForm from './components/RegistrationForm'
-import FormikForm from './components/formikForm';
+import FormikForm from './FormikForm';
 
 
 function App() {
@@ -12,6 +12,7 @@ function App() {
     <h1>Registration (Controlled)</h1>
     <h1>Registration (Formik)</h1>
       <RegistrationForm/>
+      
       <FormikForm />
       
       
