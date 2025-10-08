@@ -1,88 +1,73 @@
-// src/components/RegistrationForm.jsx
-import React, { useState } from 'react';
+
+import React, { useState } from "react";
 
 const RegistrationForm = () => {
-    const [formData, setFormData] = useState({
-        userName: '',
-        email: '',
-        password: ''
-    });
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
 
-    const [errors, setErrors] = useState({});
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-    const validate = () => {
-    const newErrors = {};
-    if (!formData.userName.trim()) newErrors.userName = 'Username is required';
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
-      newErrors.email = 'Enter a valid email';
-    }
-    if (!formData.password) newErrors.password = 'Password is required';
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-  
-  const handleSubmit = (e) =>{
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if(!validate()) return;
-     console.log('Submitting', formData);
 
-     setFormData({userName: '', email: '', password: ''});
-     setErrors({});
+    // Basic validation
+    const newErrors = {};
+    if (!username) newErrors.username = "Username is required";
+    if (!email) newErrors.email = "Email is required";
+    if (!password) newErrors.password = "Password is required";
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length === 0) {
+      console.log("Form Submitted", { username, email, password });
+      // Reset form
+      setUsername("");
+      setEmail("");
+      setPassword("");
+    }
   };
 
-    return (
-    <form onSubmit={handleSubmit} noValidate>
-      <div>
-        <label htmlFor="username">Username</label>
-        <input
-          id="username"
-          name="username"
-          type="text"
-          value={formData.userName}
-          onChange={handleChange}
-          aria-describedby="username-error"
-        />
-        {errors.userName && <div id="username-error" role="alert">{errors.userName}</div>}
-      </div>
+  return (
+    <div>
+      <h2>User Registration</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="username">Username:</label>
+          <input
+            id="username"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          {errors.username && <div style={{ color: "red" }}>{errors.username}</div>}
+        </div>
 
-      <div>
-        <label htmlFor="email">Email</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          value={formData.email}
-          onChange={handleChange}
-          aria-describedby="email-error"
-        />
-        {errors.email && <div id="email-error" role="alert">{errors.email}</div>}
-      </div>
+        <div>
+          <label htmlFor="email">Email:</label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          {errors.email && <div style={{ color: "red" }}>{errors.email}</div>}
+        </div>
 
-      <div>
-        <label htmlFor="password">Password</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          value={formData.password}
-          onChange={handleChange}
-          aria-describedby="password-error"
-        />
-        {errors.password && <div id="password-error" role="alert">{errors.password}</div>}
-      </div>
+        <div>
+          <label htmlFor="password">Password:</label>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          {errors.password && <div style={{ color: "red" }}>{errors.password}</div>}
+        </div>
 
-      <button type="submit">Register</button>
-    </form>
+        <button type="submit">Register</button>
+      </form>
+    </div>
   );
-
-
-}
+};
 
 export default RegistrationForm;
