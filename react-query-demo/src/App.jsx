@@ -3,14 +3,19 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import PostsComponent from "./components/PostsComponent"
+ import { QueryClient, QueryClientProvider } from 'react-query';
+
+   const queryClient = new QueryClient();
 
 function App() {
-  const [count, setCount] = useState(0)
+  
 
   return (
     <>
     <h1>React Query Demo</h1>
-     <PostsComponent />
+      <QueryClientProvider client={queryClient}>
+        <PostsComponent />
+      </QueryClientProvider>
     </>
   )
 }
