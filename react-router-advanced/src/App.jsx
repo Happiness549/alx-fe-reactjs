@@ -6,6 +6,7 @@ import ProfileSettings from "./components/ProfileSettings.jsx";
 import User from "./components/User.jsx";
 import Login from "./components/Login.jsx";
 import PrivateRoute from "./components/PrivateRouter.jsx";
+import BlogPost from "./components/BlogPost.jsx";
 import './App.css'
 
 function App() {
@@ -35,6 +36,8 @@ function App() {
 
         
         <Route path="/user/:userId" element={<User />} />
+    
+          <Route path="/blog/:id" element={<BlogPost />} />
       </Routes>
       </BrowserRouter>
       </div>
